@@ -32,15 +32,17 @@ export const App = () => {
       try {
         setIsSomethingLoading(true);
 
-        const newGallery = await fetchGalleryData();
+        const { hits: newGallery, total: totalHits } = await fetchGalleryData();
 
         if (newGallery.length === 0) {
           handleNoImages();
-        } else if (newGallery.length < perPage) {
+        } else if (
+          totalHits === perPage ||
+          (newGallery.length < perPage && newGallery.length > 0)
+        ) {
           handleEndOfResults();
-        } else {
-          updateGallery(newGallery);
         }
+        updateGallery(newGallery);
 
         scrollToTopOfNewResults();
       } catch (error) {
