@@ -52,6 +52,7 @@ export const App = () => {
       }
     };
     fetchItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, page]);
 
   const clearGallery = () => {
